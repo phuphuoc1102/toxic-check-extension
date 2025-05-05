@@ -1,89 +1,88 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @font-face {
-    font-family: 'OpenSans-Bold';
-    src: url('../fonts/OpenSans-Bold.ttf') format('truetype');
-    font-weight: bold;
-    font-style: normal;
-  }
-  
-@font-face {
-    font-family: 'OpenSans-ExtraBold';
-    src: url('../fonts/OpenSans-ExtraBold.ttf') format('truetype');
-    font-weight: 800;
-    font-style: normal;
-  }
-  
-@font-face {
-    font-family: 'OpenSans-Light';
-    src: url('../fonts/OpenSans-Light.ttf') format('truetype');
-    font-weight: 300;
-    font-style: normal;
-  }
-  
-@font-face {
-    font-family: 'OpenSans-Regular';
-    src: url('../fonts/OpenSans-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-  }
-  
-@font-face {
-    font-family: 'OpenSans-SemiBold';
-    src: url('../fonts/OpenSans-SemiBold.ttf') format('truetype');
-    font-weight: 600;
-    font-style: normal;
-  }
-  
-@font-face {
-    font-family: 'OpenSans-Medium';
-    src: url('../fonts/OpenSans-Medium.ttf') format('truetype');
-    font-weight: 500;
-    font-style: normal;
-  }
+  font-family: 'OpenSans-Bold';
+  src: url('../fonts/OpenSans-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
 
+@font-face {
+  font-family: 'OpenSans-ExtraBold';
+  src: url('../fonts/OpenSans-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'OpenSans-Light';
+  src: url('../fonts/OpenSans-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'OpenSans-Regular';
+  src: url('../fonts/OpenSans-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'OpenSans-SemiBold';
+  src: url('../fonts/OpenSans-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'OpenSans-Medium';
+  src: url('../fonts/OpenSans-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
 
 h1 {
-    font-family: 'OpenSans-ExtraBold', sans-serif;
-    font-size: 30px;
-    color: #252F40;
+  font-family: 'OpenSans-ExtraBold', sans-serif;
+  font-size: 30px;
+  color: #252f40;
 }
 
 h2 {
-    font-family: 'OpenSans-Bold', sans-serif;
-    font-size: 24px;
-    color: #252F40;
+  font-family: 'OpenSans-Bold', sans-serif;
+  font-size: 24px;
+  color: #252f40;
 }
 
 h3 {
-    font-family: 'OpenSans-SemiBold', sans-serif;
-    font-size: 20px;
-    color: #252F40;
+  font-family: 'OpenSans-SemiBold', sans-serif;
+  font-size: 20px;
+  color: #252f40;
 }
 
 h4 {
-    font-family: 'OpenSans-Medium', sans-serif;
-    font-size: 16px;
-    color: #252F40;
+  font-family: 'OpenSans-Medium', sans-serif;
+  font-size: 16px;
+  color: #252f40;
 }
 
 h5 {
-    font-family: 'OpenSans-Regular', sans-serif;
-    font-size: 14px;
-    color: #252F40;
+  font-family: 'OpenSans-Regular', sans-serif;
+  font-size: 14px;
+  color: #252f40;
 }
 
 p {
-    font-family: 'OpenSans-Regular', sans-serif;
-    font-size: 14px;
-    color: #252F40;
+  font-family: 'OpenSans-Regular', sans-serif;
+  font-size: 14px;
+  color: #252f40;
 }
 
 .blur-text *:not(script):not(style):not(link):not(meta):not(head):not(title) {
   color: transparent !important;
-  text-shadow: 0 0 5px rgba(0,0,0,0.5);
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }

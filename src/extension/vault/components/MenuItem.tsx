@@ -6,7 +6,7 @@ interface MenuItemProps {
   onClick: () => void;
 }
 
-const MenuItem: React.FC<MenuItemProps> = ({icon, title, onClick}) => {
+const MenuItem: React.FC<MenuItemProps> = ({ icon, title, onClick }) => {
   return (
     <div
       onClick={onClick}

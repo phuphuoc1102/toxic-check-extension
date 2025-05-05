@@ -1,14 +1,13 @@
-import {handleBackUpCredentialsKeyFunction} from "@/storage/secure-storage";
-import {getUserInfoApi} from "../lib/services/user.service";
-import {logout, setLoggedIn, setUser} from "./auth-slice";
-import store from "./store";
-import {removeAccessToken, setAccessToken} from "./user-slice";
-import {getItemStorage, removeItemStorage} from "./utils";
+import { getUserInfoApi } from '../lib/services/user.service';
+import { logout, setUser } from './auth-slice';
+import store from './store';
+import { removeAccessToken, setAccessToken } from './user-slice';
+import { getItemStorage } from './utils';
 
 export const initAuthStore = async (email?: string, password?: string) => {
-  const access_token = await getItemStorage("access_token");
+  const access_token = await getItemStorage('access_token');
   chrome.runtime.sendMessage({
-    action: "LOG",
+    action: 'LOG',
   });
   try {
     if (access_token) {
@@ -18,11 +17,7 @@ export const initAuthStore = async (email?: string, password?: string) => {
         if (user) {
           store.dispatch(setUser(user.data));
           if (email && password) {
-            await handleBackUpCredentialsKeyFunction(
-              email,
-              password,
-              user.data.id,
-            );
+            console.log('email', 'password', email, password);
           }
         }
       } catch (error) {

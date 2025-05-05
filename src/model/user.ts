@@ -1,4 +1,4 @@
-import { IUserProviderResponse } from "./user-provider";
+import { IUserProviderResponse } from './user-provider';
 
 export enum role {
   USER,
@@ -23,5 +23,5 @@ export interface IUser {
 }
 
 export interface IUserInfo extends IUser {
-    providers: IUserProviderResponse[];
-  }
+  providers: IUserProviderResponse[];
+}

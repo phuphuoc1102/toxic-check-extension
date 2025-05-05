@@ -1,5 +1,5 @@
-import React, {useState, useEffect, useCallback} from 'react';
-import {useSpring, animated} from '@react-spring/web';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useSpring, animated } from '@react-spring/web';
 import '../css/switch.css';
 
 interface SwitchProps {
@@ -30,7 +30,7 @@ const Switch: React.FC<SwitchProps> = ({
   const styles = useSpring({
     translateX: isChecked ? size / 2 : 2, // Adjust the thumb position dynamically
     backgroundColor: isChecked ? activeFillColor : inactiveFillColor,
-    config: {duration},
+    config: { duration },
   });
 
   const handleToggle = useCallback(() => {
@@ -53,7 +53,7 @@ const Switch: React.FC<SwitchProps> = ({
       role="button"
       tabIndex={0}
       onClick={handleToggle}
-      onKeyDown={e => e.key === 'Enter' && handleToggle()}
+      onKeyDown={(e) => e.key === 'Enter' && handleToggle()}
       className={`switch-container ${disabled ? 'disabled' : ''}`}
       style={{
         backgroundColor: styles.backgroundColor, // Animated background color
@@ -65,11 +65,12 @@ const Switch: React.FC<SwitchProps> = ({
         display: 'flex',
         alignItems: 'center',
         cursor: disabled ? 'not-allowed' : 'pointer',
-      }}>
+      }}
+    >
       <animated.div
         className="switch-thumb"
         style={{
-          transform: styles.translateX.to(x => `translateX(${x}px)`),
+          transform: styles.translateX.to((x) => `translateX(${x}px)`),
           width: thumbSize,
           height: thumbSize,
           backgroundColor: thumbColor,

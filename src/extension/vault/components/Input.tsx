@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback} from "react";
+import React, { useCallback, useEffect, useState } from 'react';
 
 interface InputProps {
   id?: string;
@@ -22,14 +22,13 @@ interface InputProps {
 }
 
 const Input: React.FC<InputProps> = ({
-  id = "Input",
-  value = "",
+  id = 'Input',
+  value = '',
   style,
   label,
   icon,
-  keyboardType,
   disabled,
-  placeholder = "",
+  placeholder = '',
   maxLength = 27,
   canCopy,
   canLaunch,
@@ -40,15 +39,18 @@ const Input: React.FC<InputProps> = ({
   onPressLaunchIcon,
   secureTextEntry = false, // Đặt mặc định là false
 }) => {
-  const [isFocused, setFocused] = useState(false);
+  const [, setFocused] = useState(false);
   const [inputValue, setInputValue] = useState(value);
   const [showPassword, setShowPassword] = useState(false); // Thêm state để theo dõi hiển thị mật khẩu
 
   const handleFocus = useCallback(
     (event: React.FocusEvent<HTMLInputElement>, focus: boolean) => {
       setFocused(focus);
-      focus && onFocus?.(event);
-      !focus && onBlur?.(event);
+      if (focus && onFocus) {
+        onFocus(event);
+      } else if (!focus && onBlur) {
+        onBlur(event);
+      }
     },
     [onFocus, onBlur],
   );
@@ -58,7 +60,7 @@ const Input: React.FC<InputProps> = ({
   }, [value]);
 
   const togglePasswordVisibility = () => {
-    setShowPassword(prev => !prev); // Chuyển trạng thái mật khẩu
+    setShowPassword((prev) => !prev); // Chuyển trạng thái mật khẩu
   };
 
   const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,24 +70,23 @@ const Input: React.FC<InputProps> = ({
   };
 
   return (
-    <div style={{...style, marginBottom: "1rem"}}>
+    <div style={{ ...style, marginBottom: '1rem' }}>
       {label && <h5 className="font-semibold text-text mb-2">{label}</h5>}
       <div
         className={`bg-box flex items-center px-4 py-3 rounded-[20px] transition-all 
-        ${disabled ? "bg-gray-200" : ""}`}
-        style={{minHeight: "40px"}}>
-        {icon && (
-          <img src={icon} alt="icon" className="w-5 h-5 mr-3 object-contain" />
-        )}
+        ${disabled ? 'bg-gray-200' : ''}`}
+        style={{ minHeight: '40px' }}
+      >
+        {icon && <img src={icon} alt="icon" className="w-5 h-5 mr-3 object-contain" />}
         <input
           id={id}
-          type={secureTextEntry && !showPassword ? "password" : "text"}
+          type={secureTextEntry && !showPassword ? 'password' : 'text'}
           value={inputValue}
           placeholder={placeholder}
           disabled={disabled}
           maxLength={maxLength}
-          onFocus={event => handleFocus(event, true)}
-          onBlur={event => handleFocus(event, false)}
+          onFocus={(event) => handleFocus(event, true)}
+          onBlur={(event) => handleFocus(event, false)}
           onChange={handleTextChange}
           className="flex-1 bg-transparent outline-none text-sm text-text border-none"
         />
@@ -94,7 +95,8 @@ const Input: React.FC<InputProps> = ({
           <button
             type="button"
             onClick={onPressCopyIcon}
-            className="ml-2 text-gray-600 hover:text-blue-500">
+            className="ml-2 text-gray-600 hover:text-blue-500"
+          >
             <img src="./icons/copy.png" alt="Copy" className="w-4 h-4" />
           </button>
         )}
@@ -102,7 +104,8 @@ const Input: React.FC<InputProps> = ({
           <button
             type="button"
             onClick={onPressLaunchIcon}
-            className="ml-2 text-gray-600 hover:text-blue-500">
+            className="ml-2 text-gray-600 hover:text-blue-500"
+          >
             <img src="./icons/launch.png" alt="Launch" className="w-4 h-4" />
           </button>
         )}
@@ -110,13 +113,10 @@ const Input: React.FC<InputProps> = ({
           <button
             type="button"
             onClick={togglePasswordVisibility}
-            className="ml-2 text-gray-600 hover:text-blue-500">
+            className="ml-2 text-gray-600 hover:text-blue-500"
+          >
             <img
-              src={
-                showPassword
-                  ? "./icons/hide-password.png"
-                  : "./icons/show-password.png"
-              }
+              src={showPassword ? './icons/hide-password.png' : './icons/show-password.png'}
               alt="Toggle Password Visibility"
               className="w-4 h-4"
             />

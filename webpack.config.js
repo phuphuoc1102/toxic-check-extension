@@ -1,20 +1,20 @@
-const path = require("path");
-const webpack = require("webpack");
-const CopyPlugin = require("copy-webpack-plugin");
-const HtmlPlugin = require("html-webpack-plugin");
-const tailwindcss = require("tailwindcss");
-const autoprefixer = require("autoprefixer");
-const {CleanWebpackPlugin} = require("clean-webpack-plugin");
-const Dotenv = require("dotenv-webpack");
-const ExtensionReloader = require("webpack-extension-reloader");
+const path = require('path');
+const webpack = require('webpack');
+const CopyPlugin = require('copy-webpack-plugin');
+const HtmlPlugin = require('html-webpack-plugin');
+const tailwindcss = require('tailwindcss');
+const autoprefixer = require('autoprefixer');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
+const ExtensionReloader = require('webpack-extension-reloader');
 
 module.exports = {
-  mode: "development",
-  devtool: "cheap-module-source-map",
+  mode: 'development',
+  devtool: 'cheap-module-source-map',
   entry: {
-    app: path.resolve("src/index.tsx"),
-    contentScript: path.resolve("./src/contentScript/autofillScript.tsx"),
-    background: path.resolve("./src/background.js"),
+    app: path.resolve('src/index.tsx'),
+    // contentScript: path.resolve('./src/contentScript/autofillScript.tsx'),
+    background: path.resolve('./src/background.js'),
   },
   module: {
     rules: [
@@ -22,12 +22,12 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
-            presets: ["@babel/preset-env", "@babel/preset-react"],
+            presets: ['@babel/preset-env', '@babel/preset-react'],
             plugins: [
-              "@babel/plugin-proposal-optional-chaining", // Cần thiết để xử lý optional chaining
-              "@babel/plugin-proposal-nullish-coalescing-operator", // Nếu cần xử lý nullish coalescing
+              '@babel/plugin-proposal-optional-chaining', // Cần thiết để xử lý optional chaining
+              '@babel/plugin-proposal-nullish-coalescing-operator', // Nếu cần xử lý nullish coalescing
             ],
           },
         },
@@ -36,33 +36,33 @@ module.exports = {
         test: /\.js$/,
         include: /node_modules[\\/]@react-spring/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
-            presets: ["@babel/preset-env", "@babel/preset-react"],
-            plugins: ["@babel/plugin-proposal-optional-chaining"],
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+            plugins: ['@babel/plugin-proposal-optional-chaining'],
           },
         },
       },
       {
-        use: "ts-loader",
+        use: 'ts-loader',
         test: /\.(tsx|ts)$/,
         exclude: /node_modules/,
       },
       {
         test: /\.css$/i,
         use: [
-          "style-loader",
+          'style-loader',
           {
-            loader: "css-loader",
+            loader: 'css-loader',
             options: {
               importLoaders: 1,
             },
           },
           {
-            loader: "postcss-loader",
+            loader: 'postcss-loader',
             options: {
               postcssOptions: {
-                ident: "postcss",
+                ident: 'postcss',
                 plugins: [tailwindcss, autoprefixer],
               },
             },
@@ -71,19 +71,19 @@ module.exports = {
       },
       {
         test: /\.(png|jpg|jpeg|gif|woff|woff2|tff|eot|svg)$/i,
-        loader: "file-loader",
+        loader: 'file-loader',
         options: {
-          name: "[path][name].[ext]",
+          name: '[path][name].[ext]',
         },
       },
       {
         test: /\.(ttf|otf)$/,
         use: [
           {
-            loader: "file-loader",
+            loader: 'file-loader',
             options: {
-              name: "[name].[ext]",
-              outputPath: "fonts/",
+              name: '[name].[ext]',
+              outputPath: 'fonts/',
             },
           },
         ],
@@ -92,7 +92,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      "process.env.LOGGING_ENABLED": JSON.stringify(true),
+      'process.env.LOGGING_ENABLED': JSON.stringify(true),
     }),
     new Dotenv(),
     new CleanWebpackPlugin({
@@ -101,44 +101,44 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         {
-          from: path.resolve("src/static"),
-          to: path.resolve("dist"),
+          from: path.resolve('src/static'),
+          to: path.resolve('dist'),
         },
-        {from: "src/assets/css/content.css", to: "css/content.css"},
+        { from: 'src/assets/css/content.css', to: 'css/content.css' },
       ],
     }),
-    ...getHtmlPlugins(["app", "contentScript"]),
+    ...getHtmlPlugins(['app', 'contentScript']),
     new ExtensionReloader({
       entries: {
-        popup: "app", // Popup entry point
-        contentScript: "contentScript",
+        popup: 'app', // Popup entry point
+        contentScript: 'contentScript',
       },
     }),
   ],
   devServer: {
-    contentBase: path.join(__dirname, "dist"),
+    contentBase: path.join(__dirname, 'dist'),
     compress: true,
     port: 9000,
     hot: true,
     writeToDisk: true,
     inline: true,
-    allowedHosts: ["all"],
+    allowedHosts: ['all'],
     disableHostCheck: true,
   },
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "src"),
+      '@': path.resolve(__dirname, 'src'),
     },
-    extensions: [".tsx", ".ts", ".js"],
+    extensions: ['.tsx', '.ts', '.js'],
   },
   output: {
-    filename: "[name].js",
-    path: path.join(__dirname, "dist"),
+    filename: '[name].js',
+    path: path.join(__dirname, 'dist'),
   },
   optimization: {
     splitChunks: {
       chunks(chunk) {
-        return chunk.name !== "contentScript";
+        return chunk.name !== 'contentScript';
       },
     },
   },
@@ -146,9 +146,9 @@ module.exports = {
 
 function getHtmlPlugins(chunks) {
   return chunks.map(
-    chunk =>
+    (chunk) =>
       new HtmlPlugin({
-        title: "Chrome Extension with ReactJs",
+        title: 'Chrome Extension with ReactJs',
         filename: `${chunk}.html`,
         chunks: [chunk],
       }),

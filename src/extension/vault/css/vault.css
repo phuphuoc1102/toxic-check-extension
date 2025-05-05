@@ -54,7 +54,7 @@ body {
   border-radius: 10px;
   width: 90%;
 }
- body {
+body {
   width: 100%;
   margin: 0;
   height: 110vh;
@@ -172,7 +172,6 @@ body {
 }
 /* Đảm bảo body chiếm toàn bộ màn hình và co giãn */
 
-
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -181,12 +180,12 @@ body {
   scrollbar-width: none; /* Firefox */
 }
 #itemList {
-  overflow-y: scroll; 
-  scrollbar-width: none; 
-  -ms-overflow-style: none; 
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-#itemList::-webkit-scrollbar { 
+#itemList::-webkit-scrollbar {
   display: none;
 }
 /* Ẩn thanh cuộn của Vault */
@@ -203,6 +202,10 @@ body {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

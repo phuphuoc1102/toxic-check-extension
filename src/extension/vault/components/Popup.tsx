@@ -4,11 +4,11 @@ import Button from './Button';
 import Input from './Input';
 
 interface PopupProps {
-  inputs: {id: string; label: string; placeholder: string; icon: string}[];
+  inputs: { id: string; label: string; placeholder: string; icon: string }[];
   onClose: () => void;
 }
 
-const Popup: React.FC<PopupProps> = ({inputs, onClose}) => {
+const Popup: React.FC<PopupProps> = ({ inputs, onClose }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center z-20">
       <div className="bg-white p-6 rounded-lg shadow-lg">
@@ -20,7 +20,7 @@ const Popup: React.FC<PopupProps> = ({inputs, onClose}) => {
               label={input.label}
               placeholder={input.placeholder}
               icon={input.icon}
-              onChangeText={text => console.log(text)}
+              onChangeText={(text) => console.log(text)}
             />
           </div>
         ))}

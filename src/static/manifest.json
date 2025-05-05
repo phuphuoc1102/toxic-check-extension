@@ -35,13 +35,7 @@
       "matches": ["<all_urls>"]
     }
   ],
-  "permissions": [
-    "storage",
-    "activeTab",
-    "tabs",
-    "scripting",
-    "declarativeContent"
-  ],
+  "permissions": ["storage", "activeTab", "tabs", "scripting", "declarativeContent"],
 
   "host_permissions": ["<all_urls>"],
   "author": "Dana Experts"
