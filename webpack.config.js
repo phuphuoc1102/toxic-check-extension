@@ -1,24 +1,19 @@
-import autoprefixer from 'autoprefixer';
-import { CleanWebpackPlugin } from 'clean-webpack-plugin';
-import CopyPlugin from 'copy-webpack-plugin';
-import Dotenv from 'dotenv-webpack';
-import HtmlPlugin from 'html-webpack-plugin';
-import path from 'path';
-import tailwindcss from 'tailwindcss';
-import { fileURLToPath } from 'url';
-import webpack from 'webpack';
-import ExtensionReloader from 'webpack-extension-reloader';
+const path = require('path');
+const webpack = require('webpack');
+const CopyPlugin = require('copy-webpack-plugin');
+const HtmlPlugin = require('html-webpack-plugin');
+const tailwindcss = require('tailwindcss');
+const autoprefixer = require('autoprefixer');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
+const ExtensionReloader = require('webpack-extension-reloader');
 
-// Xử lý __dirname cho ES Module
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-export default {
+module.exports = {
   mode: 'development',
   devtool: 'cheap-module-source-map',
   entry: {
     app: path.resolve('src/index.tsx'),
-    contentScript: path.resolve('./src/contentScript/autofillScript.tsx'),
+    // contentScript: path.resolve('./src/contentScript/autofillScript.tsx'),
     background: path.resolve('./src/background.js'),
   },
   module: {
@@ -31,8 +26,8 @@ export default {
           options: {
             presets: ['@babel/preset-env', '@babel/preset-react'],
             plugins: [
-              '@babel/plugin-proposal-optional-chaining',
-              '@babel/plugin-proposal-nullish-coalescing-operator',
+              '@babel/plugin-proposal-optional-chaining', // Cần thiết để xử lý optional chaining
+              '@babel/plugin-proposal-nullish-coalescing-operator', // Nếu cần xử lý nullish coalescing
             ],
           },
         },
@@ -115,7 +110,7 @@ export default {
     ...getHtmlPlugins(['app', 'contentScript']),
     new ExtensionReloader({
       entries: {
-        popup: 'app',
+        popup: 'app', // Popup entry point
         contentScript: 'contentScript',
       },
     }),
