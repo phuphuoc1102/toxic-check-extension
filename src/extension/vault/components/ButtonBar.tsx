@@ -1,4 +1,4 @@
-import React, {useRef, useState, useEffect, useCallback} from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import Button from './Button';
 import '../css/vault.css';
 
@@ -7,7 +7,7 @@ interface ButtonBarProps {
   data: string[];
 }
 
-const ButtonBar: React.FC<ButtonBarProps> = ({onButtonPress, data}) => {
+const ButtonBar: React.FC<ButtonBarProps> = ({ onButtonPress, data }) => {
   const [activeButton, setActiveButton] = useState<string>('all');
   const [showLeftArrow, setShowLeftArrow] = useState<boolean>(false);
   const [showRightArrow, setShowRightArrow] = useState<boolean>(false);
@@ -18,7 +18,7 @@ const ButtonBar: React.FC<ButtonBarProps> = ({onButtonPress, data}) => {
   // Kiểm tra hiển thị nút
   const checkArrowVisibility = useCallback(() => {
     if (buttonBarRef.current) {
-      const {scrollWidth, clientWidth, scrollLeft} = buttonBarRef.current;
+      const { scrollWidth, clientWidth, scrollLeft } = buttonBarRef.current;
       setShowLeftArrow(scrollLeft > 0); // Hiển thị mũi tên trái nếu không ở đầu
       setShowRightArrow(scrollLeft + clientWidth < scrollWidth); // Hiển thị mũi tên phải nếu không ở cuối
     }
@@ -48,13 +48,13 @@ const ButtonBar: React.FC<ButtonBarProps> = ({onButtonPress, data}) => {
 
   const scrollLeft = () => {
     if (buttonBarRef.current) {
-      buttonBarRef.current.scrollBy({left: -SCROLL_STEP, behavior: 'smooth'});
+      buttonBarRef.current.scrollBy({ left: -SCROLL_STEP, behavior: 'smooth' });
     }
   };
 
   const scrollRight = () => {
     if (buttonBarRef.current) {
-      buttonBarRef.current.scrollBy({left: SCROLL_STEP, behavior: 'smooth'});
+      buttonBarRef.current.scrollBy({ left: SCROLL_STEP, behavior: 'smooth' });
     }
   };
 
@@ -65,15 +65,17 @@ const ButtonBar: React.FC<ButtonBarProps> = ({onButtonPress, data}) => {
         <button
           className="arrow-button absolute left-0 z-10 flex items-center justify-center bg-white shadow-md"
           onClick={scrollLeft}
-          aria-label="Scroll to start">
+          aria-label="Scroll to start"
+        >
           <img src="./icons/left.png" alt="Scroll Left" />
         </button>
       )}
       <div
         ref={buttonBarRef}
         className="flex overflow-hidden scroll-smooth"
-        onScroll={handleScroll}>
-        {data.map(label => (
+        onScroll={handleScroll}
+      >
+        {data.map((label) => (
           <Button
             key={label}
             label={label}
@@ -87,7 +89,8 @@ const ButtonBar: React.FC<ButtonBarProps> = ({onButtonPress, data}) => {
         <button
           className="arrow-button absolute right-0 z-10 flex items-center justify-center bg-white shadow-md"
           onClick={scrollRight}
-          aria-label="Scroll to end">
+          aria-label="Scroll to end"
+        >
           <img src="./icons/right.png" alt="Scroll Right" />
         </button>
       )}

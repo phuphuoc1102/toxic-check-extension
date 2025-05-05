@@ -8,7 +8,6 @@ const initialState: UserState = {
   accessToken: null,
 };
 
-
 // export const logout = createAsyncThunk('user/logout', async (_, { dispatch }) => {
 //   await removeItemStorage('access_token');
 //   await removeItemStorage('refresh_token');
@@ -22,7 +21,7 @@ const userSlice = createSlice({
     setAccessToken: (state, action: PayloadAction<string | null>) => {
       state.accessToken = action.payload;
     },
-    removeAccessToken: state => {
+    removeAccessToken: (state) => {
       state.accessToken = null;
     },
   },

@@ -1,4 +1,4 @@
-import {errorCodes, IError} from "./error";
+import { errorCodes, IError } from './error';
 
 export class Exception extends Error {
   code: string;
@@ -11,10 +11,5 @@ export class Exception extends Error {
 }
 
 export function isMyError(error: unknown): error is IError {
-  return (
-    typeof error === "object" &&
-    error !== null &&
-    "code" in error &&
-    "message" in error
-  );
+  return typeof error === 'object' && error !== null && 'code' in error && 'message' in error;
 }

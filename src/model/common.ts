@@ -7,16 +7,16 @@ export interface IPaging {
 }
 
 export enum STATUS {
-    SUCCESS = 'success',
-    FAILURE = 'failure'
-  }
-export type DataResponse<T> = {
-    status: STATUS,
-    data?: T,
-    meta?: IPaging
+  SUCCESS = 'success',
+  FAILURE = 'failure',
 }
+export type DataResponse<T> = {
+  status: STATUS;
+  data?: T;
+  meta?: IPaging;
+};
 
 export interface IToken {
-    access_token: string;
-    refresh_token: string;
+  access_token: string;
+  refresh_token: string;
 }

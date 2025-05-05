@@ -1,15 +1,12 @@
-import { API_ENDPOINT } from "../../constants/env";
-import { DataResponse, IToken } from "../../model/common";
-import { fetchWrapper } from "../http/fetch-wrapper";
+import { API_ENDPOINT } from '../../constants/env';
+import { DataResponse, IToken } from '../../model/common';
+import { fetchWrapper } from '../http/fetch-wrapper';
 
-export const loginApi = async (
-  email: string,
-  password: string
-): Promise<DataResponse<IToken>> => {
+export const loginApi = async (email: string, password: string): Promise<DataResponse<IToken>> => {
   return fetchWrapper.post(`${API_ENDPOINT}/auth/login`, {
     email: email,
     password: password,
-    role: "USER",
+    role: 'USER',
   });
 };
 

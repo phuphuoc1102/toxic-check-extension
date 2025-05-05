@@ -1,30 +1,29 @@
-/*global chrome*/
-import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { loginApi } from "../../lib/services/auth.service";
-import initAuthStore from "../../store";
-import { setItemStorage } from "../../store/utils";
-import "./css/sign-in.css";
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { loginApi } from '../../lib/services/auth.service';
+import initAuthStore from '../../store';
+import { setItemStorage } from '../../store/utils';
+import './css/sign-in.css';
 
-const SignIn = ({route}: any) => {
+const SignIn = () => {
   const location = useLocation();
   const [redirectUrl, setRedirectUrl] = useState<string | null>(null);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleEmailChange = e => setEmail(e.target.value);
-  const handlePasswordChange = e => setPassword(e.target.value);
+  const handleEmailChange = (e) => setEmail(e.target.value);
+  const handlePasswordChange = (e) => setPassword(e.target.value);
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
 
   useEffect(() => {
     // Get redirect URL from query params
     const params = new URLSearchParams(location.search);
-    const redirect = params.get("redirect");
+    const redirect = params.get('redirect');
     setRedirectUrl(redirect);
     chrome.runtime.sendMessage({
-      action: "LOG",
+      action: 'LOG',
       message: `[SignIn] Redirect URL: ${redirect}`,
     });
   }, [location]);
@@ -33,17 +32,17 @@ const SignIn = ({route}: any) => {
   const handleSignIn = async () => {
     try {
       const response = await loginApi(email, password);
-      await setItemStorage("access_token", response.data.access_token);
-      await setItemStorage("refresh_token", response.data.refresh_token);
+      await setItemStorage('access_token', response.data.access_token);
+      await setItemStorage('refresh_token', response.data.refresh_token);
       await initAuthStore(email, password);
 
       if (redirectUrl) {
-        chrome.tabs.update({url: redirectUrl});
+        chrome.tabs.update({ url: redirectUrl });
       } else {
-        navigate("/");
+        navigate('/');
       }
     } catch (error) {
-      console.error("Error while signing in", error);
+      console.error('Error while signing in', error);
     }
   };
 
@@ -55,9 +54,7 @@ const SignIn = ({route}: any) => {
             <img src="./icons/logo.png" alt="1Key Logo" className="w-32" />
           </div>
 
-          <label
-            htmlFor="email"
-            className="block text-sm font-medium text-gray-700">
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700">
             Email
           </label>
           <input
@@ -70,14 +67,12 @@ const SignIn = ({route}: any) => {
             className="mt-1 mb-4 w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
 
-          <label
-            htmlFor="password"
-            className="block text-sm font-medium text-gray-700">
+          <label htmlFor="password" className="block text-sm font-medium text-gray-700">
             Password
           </label>
           <div className="password-container relative flex items-center mt-1 mb-4">
             <input
-              type={showPassword ? "text" : "password"}
+              type={showPassword ? 'text' : 'password'}
               id="password"
               placeholder="Master password"
               required
@@ -88,7 +83,8 @@ const SignIn = ({route}: any) => {
             <span
               id="togglePassword"
               className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
-              onClick={togglePasswordVisibility}>
+              onClick={togglePasswordVisibility}
+            >
               <img
                 src="./icons/show-password.png"
                 alt="Show Password Icon"
@@ -102,12 +98,13 @@ const SignIn = ({route}: any) => {
             id="signInButton"
             className="w-full bg-blue-500 text-white font-semibold py-2 rounded mt-4 disabled:opacity-50"
             disabled={!email || !password}
-            onClick={handleSignIn}>
+            onClick={handleSignIn}
+          >
             Sign In
           </button>
 
           <p className="text-center mt-6 text-gray-600">
-            Not using 1Key yet?{" "}
+            Not using 1Key yet?{' '}
             <a href="#" className="text-blue-500">
               Create an account
             </a>
@@ -120,12 +117,8 @@ const SignIn = ({route}: any) => {
           </div>
 
           <button className="flex items-center justify-center w-full bg-white border border-gray-300 text-gray-700 font-semibold py-2 rounded">
-            <img
-              src="./icons/google.png"
-              alt="Google Logo"
-              className="h-5 mr-2"
-            />{" "}
-            Sign in with Google
+            <img src="./icons/google.png" alt="Google Logo" className="h-5 mr-2" /> Sign in with
+            Google
           </button>
         </div>
       </div>
