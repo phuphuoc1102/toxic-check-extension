@@ -1,0 +1,19 @@
+.autofill-logo {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform:  translateY(-50%);
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.autofill-popup {
+  width: 250px;
+  z-index: 1000 !important;
+  border-radius: 8px !important;
+  position: absolute !important;
+  background-color: #fff !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+}

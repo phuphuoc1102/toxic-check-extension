@@ -1,0 +1,29 @@
+image: node:16
+
+pipelines:
+  # main:
+  #   - step:
+  #       name: Install and Build 1Key Extension
+  #       caches:
+  #         - node
+  #       script:
+  #         - echo "Step 1 - Install dependencies"
+  #         - npm install
+  #         - echo "Step 2 - Build 1Key Extension with Webpack"
+  #         - npm run build
+  #       artifacts:
+  #         - dist/**
+
+  branches:
+    main:
+    - step:
+        name: Install and Build 1Key Extension
+        caches:
+          - node
+        script:
+          - echo "Step 1 - Install dependencies"
+          - npm install
+          - echo "Step 2 - Build 1Key Extension with Webpack"
+          - npm run build
+        artifacts:
+          - dist/**
