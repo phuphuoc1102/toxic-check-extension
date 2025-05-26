@@ -33,8 +33,11 @@ const authSlice = createSlice({
       state.user = null;
       state.isLoggedIn = false;
     },
+    updateBlockedWords: (state, action: PayloadAction<number>) => {
+      if (state.user) state.user.blocked_toxic_words = action.payload;
+    },
   },
 });
 
-export const { setLoggedIn, setUser, removeUser, logout } = authSlice.actions;
+export const { setLoggedIn, setUser, removeUser, logout, updateBlockedWords } = authSlice.actions;
 export default authSlice.reducer;

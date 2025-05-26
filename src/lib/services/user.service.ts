@@ -6,3 +6,5 @@ import { fetchWrapper } from '../http/fetch-wrapper';
 export const getUserInfoApi = async (): Promise<DataResponse<IUserInfo>> => {
   return fetchWrapper.get(`${API_ENDPOINT}/user`);
 };
+export const addBlockedToxicWordsApi = (amount: number) =>
+  fetchWrapper.post(`${API_ENDPOINT}/user/update-toxic-words`, { amount });

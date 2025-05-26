@@ -24,7 +24,7 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["contentScript.js"],
+      // "js": ["contentScript.js"],
       "css": ["css/content.css"],
       "run_at": "document_start"
     }
@@ -35,8 +35,15 @@
       "matches": ["<all_urls>"]
     }
   ],
-  "permissions": ["storage", "activeTab", "tabs", "scripting", "declarativeContent"],
-
+  "permissions": ["storage", "activeTab", "tabs", "scripting", "declarativeContent", "identity"],
+  "oauth2": {
+    "client_id": "1038883695469-nqffq81far3kjrooeo06p93nvlg695nf.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email",
+      "https://www.googleapis.com/auth/userinfo.profile",
+      "https://www.googleapis.com/auth/contacts.readonly"
+    ]
+  },
   "host_permissions": ["<all_urls>"],
-  "author": "Dana Experts"
+  "author": "Phu Phuoc"
 }
