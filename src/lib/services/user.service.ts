@@ -8,3 +8,16 @@ export const getUserInfoApi = async (): Promise<DataResponse<IUserInfo>> => {
 };
 export const addBlockedToxicWordsApi = (amount: number) =>
   fetchWrapper.post(`${API_ENDPOINT}/user/update-toxic-words`, { amount });
+
+export const turnOnSecurityApi = async (code: string): Promise<DataResponse<any>> => {
+  return fetchWrapper.patch(`${API_ENDPOINT}/user/security/turn-on`, { code });
+};
+export const turnOffSecurityApi = async (code: string): Promise<DataResponse<any>> => {
+  return fetchWrapper.patch(`${API_ENDPOINT}/user/security/turn-off`, { code });
+};
+export const changeSecurityCodeApi = async (data: {
+  oldCode: string;
+  newCode: string;
+}): Promise<DataResponse<any>> => {
+  return fetchWrapper.patch(`${API_ENDPOINT}/user/security/change-code`, data);
+};

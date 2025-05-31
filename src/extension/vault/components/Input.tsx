@@ -11,14 +11,10 @@ interface InputProps {
   disabled?: boolean;
   placeholder?: string;
   maxLength?: number;
-  canCopy?: boolean;
-  canLaunch?: boolean;
+  secureTextEntry?: boolean; // Prop để xác định input là password
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   onChangeText?: (text: string) => void;
-  onPressCopyIcon?: () => void;
-  onPressLaunchIcon?: () => void;
-  secureTextEntry?: boolean; // Thêm prop secureTextEntry
 }
 
 const Input: React.FC<InputProps> = ({
@@ -30,22 +26,17 @@ const Input: React.FC<InputProps> = ({
   disabled,
   placeholder = '',
   maxLength = 27,
-  canCopy,
-  canLaunch,
+  secureTextEntry = false,
   onFocus,
   onBlur,
   onChangeText,
-  onPressCopyIcon,
-  onPressLaunchIcon,
-  secureTextEntry = false, // Đặt mặc định là false
 }) => {
-  const [, setFocused] = useState(false);
-  const [inputValue, setInputValue] = useState(value);
-  const [showPassword, setShowPassword] = useState(false); // Thêm state để theo dõi hiển thị mật khẩu
+  const [actualValue, setActualValue] = useState(value); // Actual input value
+  const [displayValue, setDisplayValue] = useState(value); // Value shown in input (masked or actual)
+  const [showPassword, setShowPassword] = useState(false); // State để toggle show/hide password
 
   const handleFocus = useCallback(
     (event: React.FocusEvent<HTMLInputElement>, focus: boolean) => {
-      setFocused(focus);
       if (focus && onFocus) {
         onFocus(event);
       } else if (!focus && onBlur) {
@@ -56,32 +47,55 @@ const Input: React.FC<InputProps> = ({
   );
 
   useEffect(() => {
-    setInputValue(value);
-  }, [value]);
-
-  const togglePasswordVisibility = () => {
-    setShowPassword((prev) => !prev); // Chuyển trạng thái mật khẩu
-  };
+    setActualValue(value);
+    // Update display value based on showPassword and secureTextEntry
+    setDisplayValue(secureTextEntry && !showPassword ? '●'.repeat(value.length) : value);
+  }, [value, secureTextEntry, showPassword]);
 
   const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const text = event.target.value;
-    setInputValue(text);
-    onChangeText?.(text); // Thực thi khi thay đổi text
+    // If secureTextEntry and not showing password, extract the actual input by comparing lengths
+    if (secureTextEntry && !showPassword) {
+      // Since the display value is asterisks, we assume the user typed the last character
+      // This is a simplification; in a real app, you might need more robust logic
+      const newChar = text.length > actualValue.length ? text.slice(-1) : '';
+      const newActualValue =
+        text.length < actualValue.length
+          ? actualValue.slice(0, text.length) // Handle deletion
+          : actualValue + newChar; // Handle addition
+      setActualValue(newActualValue);
+      setDisplayValue('●'.repeat(text.length));
+      onChangeText?.(newActualValue);
+    } else {
+      setActualValue(text);
+      setDisplayValue(text);
+      onChangeText?.(text);
+    }
   };
 
+  const toggleShowPassword = () => {
+    setShowPassword((prev) => {
+      const newShowPassword = !prev;
+      // Update display value when toggling
+      setDisplayValue(
+        secureTextEntry && !newShowPassword ? '●'.repeat(actualValue.length) : actualValue,
+      );
+      return newShowPassword;
+    });
+  };
   return (
     <div style={{ ...style, marginBottom: '1rem' }}>
       {label && <h5 className="font-semibold text-text mb-2">{label}</h5>}
       <div
-        className={`bg-box flex items-center px-4 py-3 rounded-[20px] transition-all 
+        className={`bg-box flex items-center px-4 py-3 rounded-[8px] transition-all 
         ${disabled ? 'bg-gray-200' : ''}`}
         style={{ minHeight: '40px' }}
       >
         {icon && <img src={icon} alt="icon" className="w-5 h-5 mr-3 object-contain" />}
         <input
           id={id}
-          type={secureTextEntry && !showPassword ? 'password' : 'text'}
-          value={inputValue}
+          type={'text'}
+          value={displayValue}
           placeholder={placeholder}
           disabled={disabled}
           maxLength={maxLength}
@@ -90,30 +104,12 @@ const Input: React.FC<InputProps> = ({
           onChange={handleTextChange}
           className="flex-1 bg-transparent outline-none text-sm text-text border-none"
         />
-
-        {canCopy && (
-          <button
-            type="button"
-            onClick={onPressCopyIcon}
-            className="ml-2 text-gray-600 hover:text-blue-500"
-          >
-            <img src="./icons/copy.png" alt="Copy" className="w-4 h-4" />
-          </button>
-        )}
-        {canLaunch && (
-          <button
-            type="button"
-            onClick={onPressLaunchIcon}
-            className="ml-2 text-gray-600 hover:text-blue-500"
-          >
-            <img src="./icons/launch.png" alt="Launch" className="w-4 h-4" />
-          </button>
-        )}
         {secureTextEntry && (
           <button
             type="button"
-            onClick={togglePasswordVisibility}
-            className="ml-2 text-gray-600 hover:text-blue-500"
+            onClick={toggleShowPassword}
+            className="ml-3 focus:outline-none"
+            style={{ width: '20px', height: '20px' }} // Kích thước cố định cho button
           >
             <img
               src={showPassword ? './icons/hide-password.png' : './icons/show-password.png'}

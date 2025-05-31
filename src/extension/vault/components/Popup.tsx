@@ -19,7 +19,7 @@ const Popup: React.FC<PopupProps> = ({ inputs, onClose }) => {
               id={input.id}
               label={input.label}
               placeholder={input.placeholder}
-              icon={input.icon}
+              // icon={input.icon}
               onChangeText={(text) => console.log(text)}
             />
           </div>

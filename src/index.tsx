@@ -4,9 +4,7 @@ import { Provider } from 'react-redux';
 import { createHashRouter, redirect, RouterProvider } from 'react-router-dom';
 import './assets/css/index.css';
 import ErrorPage from './extension/components/error';
-import AuthLayout from './extension/layout/authLayout';
 import TabLayout from './extension/layout/tabLayout';
-import { authRoutes } from './extension/routes/authRoutes';
 import { tabRoutes } from './extension/routes/tabRoutes';
 import { initAuthStore } from './store'; // Import initAuthStore
 import { logout } from './store/auth-slice';
@@ -34,11 +32,11 @@ const router = createHashRouter([
     Component: TabLayout,
     children: [...tabRoutes],
   },
-  {
-    path: '/auth',
-    Component: AuthLayout,
-    children: [...authRoutes],
-  },
+  // {
+  //   path: '/auth',
+  //   Component: AuthLayout,
+  //   children: [...authRoutes],
+  // },
   {
     path: '/logout',
     action: () => {

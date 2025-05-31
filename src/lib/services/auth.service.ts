@@ -20,14 +20,42 @@ export const loginApi = async (email: string, password: string): Promise<DataRes
 };
 
 export const logoutApi = async (): Promise<DataResponse<null>> => {
-  return fetchWrapper.post(`${API_ENDPOINT}/oauth/revoke`);
+  return fetchWrapper.post(`${API_ENDPOINT}/user/logout`);
 };
 
-// export const registerApi = async (
-//   data: ISignUpRequest
-// ): Promise<DataResponse<any>> => {
-//   return fetchWrapper.post(`${API_ENDPOINT}/user/sign-up`, data);
-// };
+export const registerApi = async (data: {
+  email: string;
+  password: string;
+  confirmPassword: string;
+}): Promise<DataResponse<any>> => {
+  return fetchWrapper.post(`${API_ENDPOINT}/auth/register`, data);
+};
+export const verifyPinApi = async (data: {
+  code: string;
+  email: string;
+}): Promise<DataResponse<any>> => {
+  return fetchWrapper.post(`${API_ENDPOINT}/auth/email/verify`, data);
+};
+
+export const forgotPasswordApi = async (email: string): Promise<DataResponse<any>> => {
+  return fetchWrapper.post(`${API_ENDPOINT}/auth/email/password`, { email });
+};
+
+export const verifyCodeForgotPassword = async (data: {
+  email: string;
+  code: string;
+}): Promise<DataResponse<any>> => {
+  return fetchWrapper.post(`${API_ENDPOINT}/auth/email/password/verify`, data);
+};
+
+export const resetPasswordApi = async (data: {
+  confirmPassword: string;
+  email: string;
+  password: string;
+}): Promise<DataResponse<any>> => {
+  return fetchWrapper.post(`${API_ENDPOINT}/auth/password/reset`, data);
+};
+
 export const googleLoginApi = async ({
   email,
   name,
@@ -49,4 +77,11 @@ export const googleLoginApi = async ({
     userAgent,
     deviceId,
   });
+};
+
+export const changePasswordApi = async (data: {
+  oldPassword: string;
+  newPassword: string;
+}): Promise<DataResponse<any>> => {
+  return fetchWrapper.patch(`${API_ENDPOINT}/user/change-password`, data);
 };

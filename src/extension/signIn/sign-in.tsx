@@ -3,6 +3,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { googleLoginApi, loginApi } from '../../lib/services/auth.service';
 import initAuthStore from '../../store';
 import { setItemStorage } from '../../store/utils';
+import BackButton from '../vault/components/BackButton';
+import Input from '../vault/components/Input';
 import './css/sign-in.css';
 
 const SignIn = () => {
@@ -11,13 +13,7 @@ const SignIn = () => {
   const [redirectUrl, setRedirectUrl] = useState<string | null>(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setPassword(e.target.value);
-  const togglePasswordVisibility = () => setShowPassword(!showPassword);
 
   useEffect(() => {
     // Lấy redirect URL từ query params
@@ -133,54 +129,31 @@ const SignIn = () => {
   };
 
   return (
-    <div className="bg-white h-screen flex flex-col px-5 w-[58vh]">
-      <div className="bg-white p-8 rounded-lg mt-4">
+    <div className="bg-white h-screen flex flex-col px-5 w-[65vh]">
+      <div className="self-start py-2">
+        <BackButton handlePress={() => navigate('/')} />
+      </div>
+
+      <div className="bg-white p-2 rounded-lg">
         <div className="logo flex justify-center mb-6">
           <img src="./icons/logo.png" alt="1Key Logo" className="w-32" />
         </div>
 
         {error && <div className="text-red-500 text-center mb-4">{error}</div>}
 
-        <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-          Email
-        </label>
-        <input
-          type="email"
-          id="email"
-          placeholder="Email"
-          required
-          value={email}
-          onChange={handleEmailChange}
-          className="mt-1 mb-4 w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+        <Input id="email" label="Email" value={email} placeholder="Email" onChangeText={setEmail} />
+
+        <Input
+          id="password"
+          label="Mật khẩu"
+          value={password}
+          placeholder="Mật khẩu"
+          secureTextEntry
+          onChangeText={setPassword}
         />
-
-        <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-          Mật khẩu
-        </label>
-        <div className="password-container relative flex items-center mt-1 mb-4">
-          <input
-            type={showPassword ? 'text' : 'password'}
-            id="password"
-            placeholder="Mật khẩu"
-            required
-            value={password}
-            onChange={handlePasswordChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <span
-            id="togglePassword"
-            className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
-            onClick={togglePasswordVisibility}
-          >
-            <img
-              src="./icons/show-password.png"
-              alt="Hiển thị mật khẩu"
-              id="toggleIcon"
-              className="h-4 w-4"
-            />
-          </span>
-        </div>
-
+        <button className="text-blue-500" onClick={() => navigate('/forgot-password')}>
+          Quên mật khẩu?{' '}
+        </button>
         <button
           id="signInButton"
           className="w-full bg-blue-500 text-white font-semibold py-2 rounded mt-4 disabled:opacity-50"
@@ -191,10 +164,10 @@ const SignIn = () => {
         </button>
 
         <p className="text-center mt-6 text-gray-600">
-          Chưa sử dụng 1Key?{' '}
-          <a href="#" className="text-blue-500" onClick={() => navigate('/signup')}>
+          Chưa sử dụng P3ToxicFilter?{' '}
+          <button className="text-blue-500 underline" onClick={() => navigate('/sign-up')}>
             Tạo tài khoản
-          </a>
+          </button>
         </p>
 
         <div className="flex items-center my-4">
