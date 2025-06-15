@@ -1,3 +1,4 @@
+import { API_ENDPOINT_AI } from '@/constants/env';
 import { logoutApi } from '@/lib/services/auth.service';
 import { addBlockedToxicWordsApi } from '@/lib/services/user.service';
 import { logout, updateBlockedWords } from '@/store/auth-slice';
@@ -90,7 +91,7 @@ const Profile: React.FC = () => {
 
         /** ――― 2. gọi API dự đoán dựa trên ngôn ngữ được chọn ――― */
         const endpoint =
-          language === 'vi' ? 'http://0.0.0.0:8999/predict_vi' : 'http://0.0.0.0:8999/predict_en';
+          language === 'vi' ? `${API_ENDPOINT_AI}/predict_vi` : `${API_ENDPOINT_AI}/predict_en`;
         console.log('Calling endpoint:', endpoint);
         const res = await fetch(endpoint, {
           method: 'POST',
@@ -256,8 +257,12 @@ const Profile: React.FC = () => {
         if (!imageUrls.length) return;
 
         /** ――― 2. gọi API dự đoán ảnh bạo lực ――― */
-        console.log('Extracted image URLs:', imageUrls);
-        const res = await fetch('http://0.0.0.0:8999/predict_violence_image_batch', {
+        console.log(
+          'Extracted image URLs:',
+          imageUrls,
+          // `${API_ENDPOINT_AI}/predict_violence_image_batch`,
+        );
+        const res = await fetch(`http://tunnel.danaexperts.com:9001/predict_violence_image_batch`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ image_urls: imageUrls }),
@@ -471,7 +476,7 @@ const Profile: React.FC = () => {
         {!isLoggedIn ? (
           <>
             <p className={`text-sm mb-2 ${darkMode ? 'text-orange-300' : 'text-orange-600'}`}>
-              Bạn đang sử dụng với tư cách <span className="font-semibold">khách</span>.
+              Bạn đang sử dụng với tư cách <span className="font-semibold"></span>.
             </p>
           </>
         ) : (
@@ -483,7 +488,7 @@ const Profile: React.FC = () => {
       {isLoggedIn && (
         <div className="mb-4">
           <div className="bg-indigo-50 border-l-4 border-indigo-500 p-3 rounded-md flex items-center gap-3">
-            <img src="./icons/shield.svg" className="w-6 h-6" />
+            <img src="./icons/verified.png" className="w-6 h-6" />
             <p className="text-sm text-gray-700">
               Đã chặn <span className="font-bold text-indigo-600">{blocked}</span> nội dung độc hại
             </p>
@@ -573,12 +578,12 @@ const Profile: React.FC = () => {
               icon="./icons/lock.png"
               onClick={() => navigate('/change-password')}
             />
-            <MenuItem title="Đăng xuất" icon="./icons/lock.png" onClick={handleLogout} />
+            <MenuItem title="Đăng xuất" icon="./icons/logout.png" onClick={handleLogout} />
           </>
         ) : (
           <MenuItem
             title="Đăng nhập"
-            icon="./icons/lock.png"
+            icon="./icons/enter.png"
             onClick={() => navigate('/sign-in')}
           />
         )}

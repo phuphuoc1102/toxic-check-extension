@@ -60,9 +60,6 @@ const ChangePassword = () => {
         </div>
 
         <h2 className="text-center text-lg font-semibold text-gray-800 mb-4">Đặt lại mật khẩu</h2>
-        <p className="text-center text-sm text-gray-600 mb-6">
-          Nhập mật khẩu mới cho tài khoản của bạn.
-        </p>
 
         {error && <div className="text-red-500 text-center mb-4">{error}</div>}
 
