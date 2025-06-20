@@ -11,7 +11,7 @@
     "128": "icons/icon128.png"
   },
   "action": {
-    "default_title": "1Key Password Manager",
+    "default_title": "P3 Sensitive Content Filter",
     "default_popup": "app.html",
     "default_area": {
       "width": 280,

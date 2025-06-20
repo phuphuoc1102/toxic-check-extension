@@ -83,7 +83,7 @@ const EnterPinForgotPassword = () => {
 
       <div className="bg-white p-2 rounded-lg">
         <div className="logo flex justify-center mb-6">
-          <img src="./icons/logo.png" alt="1Key Logo" className="w-32" />
+          <img src="./icons/logo.png" alt="P3 Logo" className="w-32" />
         </div>
 
         <h2 className="text-center text-lg font-semibold text-gray-800 mb-4">Nhập mã PIN</h2>

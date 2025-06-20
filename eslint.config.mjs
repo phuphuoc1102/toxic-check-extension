@@ -35,8 +35,9 @@ export default [
       ...ts.configs.recommended.rules,
       ...react.configs.recommended.rules,
       '@typescript-eslint/no-explicit-any': 'off',
-      'react/prop-types': 'off', // Tắt quy tắc PropTypes vì dùng TypeScript
+      'react/prop-types': 'off',
       '@typescript-eslint/no-require-imports': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
     },
   },
   {

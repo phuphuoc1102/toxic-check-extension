@@ -136,7 +136,7 @@ const SignIn = () => {
 
       <div className="bg-white p-2 rounded-lg">
         <div className="logo flex justify-center mb-6">
-          <img src="./icons/logo.png" alt="1Key Logo" className="w-32" />
+          <img src="./icons/logo.png" alt="P3 Logo" className="w-32" />
         </div>
 
         {error && <div className="text-red-500 text-center mb-4">{error}</div>}

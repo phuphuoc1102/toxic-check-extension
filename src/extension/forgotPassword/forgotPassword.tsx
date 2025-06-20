@@ -34,7 +34,7 @@ const ForgotPassword = () => {
 
       <div className="bg-white p-2 rounded-lg">
         <div className="logo flex justify-center mb-6">
-          <img src="./icons/logo.png" alt="1Key Logo" className="w-32" />
+          <img src="./icons/logo.png" alt="P3 Logo" className="w-32" />
         </div>
 
         <h2 className="text-xl font-semibold text-center mb-4">Quên mật khẩu</h2>
